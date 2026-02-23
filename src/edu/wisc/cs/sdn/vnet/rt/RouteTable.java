@@ -35,15 +35,24 @@ public class RouteTable
 	 */
 	public RouteEntry lookup(int ip)
 	{
+		RouteEntry bestMatch = null;
+		String bestMatchIPString = null;
+		String queryIPString = Integer.toBinaryString(ip);
 		synchronized(this.entries)
 		{
-			/*****************************************************************/
-			/* TODO: Find the route entry with the longest prefix match	  */
-			
-			return null;
-			
-			/*****************************************************************/
+			for(RouteEntry routeEntry: entries) {
+				// find binary representation of the IP address
+				String entryIPString = Integer.toBinaryString(routeEntry.destinationAddress);
+				// if there is a match
+				if(queryIPString.startsWith(entryIPString)) {
+					if(bestMatch == null || entryIPString.length() > bestMatchIPString.length()) {
+						bestMatch = routeEntry;
+						bestMatchIPString = entryIPString;
+					}
+				}
+			}
 		}
+		return bestMatch;
 	}
 	
 	/**
@@ -225,3 +234,4 @@ public class RouteTable
 		}
 	}
 }
+
