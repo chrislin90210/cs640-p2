@@ -42,7 +42,7 @@ public class RouteTable {
 		synchronized (this.entries) {
 			for (RouteEntry routeEntry : entries) {
 				// find binary representation of the IP address
-				String entryIPString = Integer.toBinaryString(routeEntry.getDestinationAddress);
+				String entryIPString = Integer.toBinaryString(routeEntry.getDestinationAddress());
 				// if there is a match
 				if (queryIPString.startsWith(entryIPString)) {
 					if (bestMatch == null || entryIPString.length() > bestMatchIPString.length()) {

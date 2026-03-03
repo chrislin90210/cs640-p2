@@ -118,7 +118,7 @@ public class Router extends Device {
 			return; // drop the packet
 
 		// decrement the time-to-live field of the packet and drop if dead
-		payload.setTtl(payload.getTtl() - 1);
+		payload.setTtl((byte) (Integer.valueOf(payload.getTtl()) - 1));
 		if (payload.getTtl() == 0)
 			return; // drop the packet
 
